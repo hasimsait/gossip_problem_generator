@@ -46,9 +46,9 @@ def generateKnows(n,percentage):
     tmp+='            '
     for secret in range(n):
       if table[agent*n+secret]==True:
-        goalStr=f'(KNOWS agent{str(agent)} secret{str(secret)}) '
+        goalStr=f'(KNOWS agent{str(agent+1)} secret{str(secret+1)}) '
       else:
-        goalStr=f'(not(KNOWS agent{str(agent)} secret{str(secret)})) '
+        goalStr=f'(not(KNOWS agent{str(agent+1)} secret{str(secret+1)})) '
       tmp += goalStr
     tmp+='\n'
   return tmp
