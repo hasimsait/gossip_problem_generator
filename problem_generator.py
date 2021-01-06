@@ -29,7 +29,7 @@ for i in range(n):
 outputStr+='    )\n\n    (:goal\n        (and\n'
 outputStr+=knows
 outputStr+='        )\n    )\n)'
-print(outputStr)
+#print(outputStr)
 
 f= open(outputfile,"w+")
 f.write(outputStr)
