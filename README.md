@@ -3,7 +3,7 @@
 # Example:
     python3 problem_generator.py 4 0.60 "1-2 2-1 4-3"
 
-You do not have to provide a feed ("existing negative goals seperated by ' '" and "1-2 2-1 4-3" above).<br>
+You do not have to provide a feed ("existing negative goals" and "1-2 2-1 4-3" above).<br>
 If you do, it will respect the provided negative goals and add new ones to reach percentageOfNegativeGoals negative goals per agent.<br>
 Feed must always be in **"** and the negative goals must be seperated by " "(space).<br>
 Always use **-** between agent-secret.
