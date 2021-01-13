@@ -65,5 +65,5 @@ def generateKnows(n, percentage, feed):
                 printForSeed+=str(agent+1)+'-'+str(secret+1)+' '
             tmp += goalStr
         tmp += '\n'
-    print(printForSeed+'"')
+    print(printForSeed[:-1]+'"')
     return tmp
