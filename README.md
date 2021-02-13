@@ -18,3 +18,8 @@ If you enter a percentage lower than the feed (for the example above, asking for
 It also applies to 100% (1.0). Each agent knows their own piece of the secret to begin with and we can not make agents forget the secrets that they know.
 
 If you want to have true 100% negative goals per agent (which will always be infeasible), you can comment out the 37th line of goal_generator.py.
+
+while ! singularity run -C -H $MYRUNDIR $MYPLANNER $MYDOMAIN "$MYRUNDIR/random/problem_n_p.pddl" $MYRUNDIR/sas_plan; do python path/to/gossip_problem_generator/problem_generator.py n 0.p; done
+
+while a plan can not be found for the problem_n_p.pddl on MYDOMAIN
+    generate a new problem instance (goal state instance)
