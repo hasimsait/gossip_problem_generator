@@ -23,36 +23,37 @@ def generate_info(n):
 '''
 
 
-def generate_constraints(n, percentage, feed):
-    # basically generates a dictionary that represents what the info dict should look like in the end
+def generate_constraints(n, percentage, seed):
+    # generates a dictionary that represents what the info dict should look like in the end
     if percentage != 0:
         number_of_negative_goals_per_agent = int(n//(1/percentage))
-        # rounds the number of negative goals per agent (you said uniformly distributed negative goals are prefferable)
+        # round the number of negative goals per agent
+        # (uniformly distributed negative goals are prefferable)
         constraints = {}
         for i in range(n):
             doNotInclude = []
             for j in range(n):
-                if feed[i*n+j] == False:
+                if seed[i*n+j] == False:
                     doNotInclude.append(j)
             doNotInclude.append(i)
-            #print(number_of_negative_goals_per_agent-len(doNotInclude))
+            # print(number_of_negative_goals_per_agent-len(doNotInclude))
             constraints[i] = random.sample(without_i(
                 range(n), doNotInclude), number_of_negative_goals_per_agent-len(doNotInclude)+1)
             # select percentage*n agents (excluding i), for each agent i.
-    table = feed
+    table = seed
     if percentage == 0:
         return table
     for i in range(n):
         for cons in constraints[i]:
             table[i*n+cons] = False
-    #print(table)
+    # print(table)
     return table
 
 
-def generateKnows(n, percentage, feed):
-    table = generate_constraints(n, percentage, feed)
+def generateKnows(n, percentage, seed):
+    table = generate_constraints(n, percentage, seed)
     tmp = ''
-    printForSeed='"'
+    printForSeed = '"'
     for agent in range(n):
         tmp += '            '
         for secret in range(n):
@@ -62,7 +63,7 @@ def generateKnows(n, percentage, feed):
             else:
                 goalStr = '(not(KNOWS agent'+str(agent+1) + \
                     ' secret'+str(secret+1)+')) '
-                printForSeed+=str(agent+1)+'-'+str(secret+1)+' '
+                printForSeed += str(agent+1)+'-'+str(secret+1)+' '
             tmp += goalStr
         tmp += '\n'
     print(printForSeed[:-1]+'"')

@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import sys
 import copy
 from goal_generator import generateKnows
@@ -11,29 +13,29 @@ except:
     quit()
 
 if len(sys.argv) > 3:
-    # if feed is supplied
+    # if seed is supplied
     agents = {}
     for i in range(n):
         for j in range(n):
             agents[i*n+j] = True
 
-    feed = str(sys.argv[3]).split(' ')
-    for pairIndex in range(len(feed)):
+    seed = str(sys.argv[3]).split(' ')
+    for pairIndex in range(len(seed)):
         # you could use something more useful here
-        indexOfSeperator = feed[pairIndex].find('-')
-        i = int(feed[pairIndex][0:indexOfSeperator])-1
-        j = int(feed[pairIndex][indexOfSeperator+1:])-1
+        indexOfSeperator = seed[pairIndex].find('-')
+        i = int(seed[pairIndex][0:indexOfSeperator])-1
+        j = int(seed[pairIndex][indexOfSeperator+1:])-1
         # print(i,j)
         agents[i*n+j] = False
-    feed = agents
+    seed = agents
 else:
-    feed = {}
+    seed = {}
     for i in range(n):
         for j in range(n):
-            feed[i*n+j] = True
+            seed[i*n+j] = True
 
 
-knows = generateKnows(n, percentage, feed)
+knows = generateKnows(n, percentage, seed)
 
 outputStr = '(define (problem problemGossip)\n    (:domain domainGossip)\n\n    (:objects\n        '
 for i in range(n):
@@ -48,8 +50,6 @@ for i in range(n):
 outputStr += '    )\n\n    (:goal\n        (and\n'
 outputStr += knows
 outputStr += '        )\n    )\n)'
-# print(outputStr)
-
 outputfile = 'problem_'+str(n)+'_'+str(int(percentage*100))+'.pddl'
 f = open(outputfile, "w+")
 f.write(outputStr)
