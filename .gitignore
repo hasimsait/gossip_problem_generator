@@ -1,2 +1,11 @@
 __pycache__
-output.sas
+
+# translator output files
+*.sas
+
+# PDDL files
+problem*.pddl
+
+.vscode/
+
+sas_plan
