@@ -22,11 +22,11 @@ if len(sys.argv) > 4:
             agents[i * n + j] = True
 
     seed = str(sys.argv[4]).split(' ')
-    for pairIndex in range(len(seed)):
+    for pairIndex, value in enumerate(seed):
         # you could use something more useful here
         indexOfSeperator = seed[pairIndex].find('-')
-        i = int(seed[pairIndex][0:indexOfSeperator]) - 1
-        j = int(seed[pairIndex][indexOfSeperator + 1:]) - 1
+        i = int(value[0:indexOfSeperator]) - 1
+        j = int(value[indexOfSeperator + 1:]) - 1
         # print(i,j)
         agents[i * n + j] = False
     seed = agents

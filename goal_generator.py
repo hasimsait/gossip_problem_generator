@@ -19,7 +19,7 @@ def generate_constraints(n, percentage, seed):
         for i in range(n):
             doNotInclude = []
             for j in range(n):
-                if seed[i * n + j] == False:
+                if seed[i * n + j] is False:
                     doNotInclude.append(j)
             doNotInclude.append(i)
             # print(number_of_negative_goals_per_agent-len(doNotInclude))
@@ -44,7 +44,7 @@ def generateKnows(depth, n, percentage, seed):
     for agent in range(n):
         tmp += '            '
         for secret in range(n):
-            if table[agent * n + secret] == True:
+            if table[agent * n + secret] is True:
                 goalStr = '(KNOWS agent'+str(agent+1) + \
                     ' secret'+str(secret+1)+') '
             else:
