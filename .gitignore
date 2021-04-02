@@ -5,6 +5,7 @@ __pycache__
 
 # PDDL files
 problem*.pddl
+domain*.pddl
 
 .vscode/
 

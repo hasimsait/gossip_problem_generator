@@ -22,5 +22,8 @@ def generateDomain(d, n):
     padding = '			'
     for agent in range(1, n+1):
         start += padding + \
-            f'(forall (?s - secret) (when (and (not (= ?i ag{agent})) (not (= ?j ag{agent})) (or (and (KNOWS ?i ?s) (KNOWS ag{agent} ?s) (KNOWSTHATTHEYKNOW ?i ag{agent} ?s)) (and (KNOWS ?j ?s) (KNOWS ag{agent} ?s) (KNOWSTHATTHEYKNOW ?j ag{agent} ?s)))) (and (KNOWSTHATTHEYKNOW ?i ag{agent} ?s) (KNOWSTHATTHEYKNOW ?j ag{agent} ?s))))\n'
+            '(forall (?s - secret) (when (and (not (= ?i ag'+str(agent)+')) (not (= ?j ag'+str(agent)+')) (or (and (KNOWS ?i ?s) (KNOWS ag'+str(agent)+' ?s) (KNOWSTHATTHEYKNOW ?i ag'+str(agent) + \
+            ' ?s)) (and (KNOWS ?j ?s) (KNOWS ag'+str(agent)+' ?s) (KNOWSTHATTHEYKNOW ?j ag'+str(agent) + \
+            ' ?s)))) (and (KNOWSTHATTHEYKNOW ?i ag'+str(agent) + \
+            ' ?s) (KNOWSTHATTHEYKNOW ?j ag'+str(agent)+' ?s))))\n'
     return start + '\t\t)\n'+'\t)\n'+')'
