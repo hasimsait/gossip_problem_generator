@@ -3,6 +3,7 @@
 import sys
 import copy
 from goal_generator import generateKnows
+from domain_generator import generateDomain
 
 try:
     d = int(sys.argv[1])
@@ -55,6 +56,12 @@ outputStr += knows
 outputStr += '        )\n    )\n)'
 outputfile = 'problem_' + str(d) + '_' + str(n) + '_' + str(
     int(percentage * 100)) + '.pddl'
+
+if d is not 1:
+    domain = generateDomain(d,n)
+    f = open("domain_"+str(d)+'_'+str(n)+'.pddl', "w+")
+    f.write(domain)
+    f.close
 f = open(outputfile, "w+")
 f.write(outputStr)
 f.close()
