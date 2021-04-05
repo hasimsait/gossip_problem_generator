@@ -53,7 +53,7 @@ def generateKnows(depth, n, percentage, seed):
                 printForSeed += str(agent + 1) + '-' + str(secret + 1) + ' '
             tmp += goalStr
         tmp += '\n'
-    if depth == 2:
+    if depth >= 2:
         for agent1 in range(1, n + 1):
             for agent2 in range(1, n + 1):
                 if agent1 != agent2:
@@ -61,11 +61,28 @@ def generateKnows(depth, n, percentage, seed):
                     for secret in range(1, n + 1):
                         # TODO the not part.
                         # If I add it the same way we will have many infeasible instances
-                        goalStr = '(KNOWSTHATTHEYKNOW agent'+str(agent1) +\
+                        goalStr = '(KNOWS-2 agent'+str(agent1) +\
                             ' agent'+str(agent2) + ' secret'+str(secret)+') '
                         tmp += goalStr
                     tmp += '\n'
-
+    if depth >= 3:
+        for agent1 in range(1, n + 1):
+            for agent2 in range(1, n + 1):
+                if agent1 != agent2:
+                    for agent3 in range(1, n + 1):
+                        if agent2 != agent3:
+                            tmp += '            '
+                            for secret in range(1, n + 1):
+                                # TODO the not part.
+                                # If I add it the same way we will have many infeasible instances
+                                goalStr = '(KNOWS-3 agent' + str(
+                                    agent1
+                                ) + ' agent' + str(agent2) + ' agent' + str(
+                                    agent3) + ' secret' + str(secret) + ') '
+                                tmp += goalStr
+                            tmp += '\n'
+    # same applies here, you could improve this easily but you won't be able to use those
+    # depth =5 n =100 instances anyways
     if printForSeed != '"':
         # don't print seed when there is no seed to print ie. percentage = 0
         print(printForSeed[:-1] + '"')

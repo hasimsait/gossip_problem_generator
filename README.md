@@ -26,3 +26,5 @@ while ! singularity run -C -H $MYRUNDIR $MYPLANNER $MYDOMAIN "$MYRUNDIR/random/p
 
 while a plan can not be found for the problem_d_n_p.pddl on MYDOMAIN
 generate a new problem instance (goal state instance)
+
+

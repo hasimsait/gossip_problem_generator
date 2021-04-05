@@ -4,8 +4,7 @@ __pycache__
 *.sas
 
 # PDDL files
-problem*.pddl
-domain*.pddl
+.pddl
 
 .vscode/
 
