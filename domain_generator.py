@@ -28,7 +28,7 @@ def generateDomain(d, n):
 '''
 
     if d == 2:
-        #turns out WE CAN have nice things but we shouldn't ignore planner warnings.
+        # turns out WE CAN have nice things but we shouldn't ignore planner warnings.
         return '''(define (domain domainGossip)
     (:requirements
         :strips :disjunctive-preconditions :equality
@@ -66,11 +66,10 @@ def generateDomain(d, n):
 '''
         padding = '\t\t\t'
         for agent in range(1, n + 1):
-            start += padding +
-            '(forall (?s) (when (and (not (= ?i agent'+str(agent)+')) (not (= ?j agent'+str(agent)+')) (or (and (KNOWS ?i ?s) (KNOWS-2 ?i agent'+str(agent)+' ?s) (KNOWS agent'+str(agent)+' ?s)) (and (KNOWS-2 ?j agent' +
-            str(agent)+' ?s) (KNOWS ?j ?s) (KNOWS agent'+str(agent)+' ?s)))) (and (KNOWS-2 ?i agent'+str(agent) +
-            ' ?s) (KNOWS-2 ?j agent'+str(agent)+' ?s) (KNOWS-3 ?i ?j agent' +
-            str(agent)+' ?s) (KNOWS-3 ?j ?i agent'+str(agent)+' ?s))))\n'
+            start += padding + '(forall (?s) (when (and (not (= ?i agent'+str(agent)+')) (not (= ?j agent'+str(agent)+')) (or (and (KNOWS ?i ?s) (KNOWS-2 ?i agent'+str(agent)+' ?s) (KNOWS agent'+str(agent)+' ?s)) (and (KNOWS-2 ?j agent' +\
+                str(agent)+' ?s) (KNOWS ?j ?s) (KNOWS agent'+str(agent)+' ?s)))) (and (KNOWS-2 ?i agent'+str(agent) +\
+                ' ?s) (KNOWS-2 ?j agent'+str(agent)+' ?s) (KNOWS-3 ?i ?j agent' +\
+                str(agent)+' ?s) (KNOWS-3 ?j ?i agent'+str(agent)+' ?s))))\n'
         for agent1 in range(1, n + 1):
             for agent2 in range(1, n + 1):
                 # you could add a simple (and (not(= ?ag1 ?ag2)) to the beginning for the conditional below
