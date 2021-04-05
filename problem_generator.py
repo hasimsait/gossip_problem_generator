@@ -42,10 +42,10 @@ knows = generateKnows(d, n, percentage, seed)
 outputStr = '(define (problem problemGossip)\n    (:domain domainGossip)\n\n    (:objects\n        '
 for i in range(n):
     outputStr += 'agent' + str(i + 1) + ' '
-outputStr += '- agent\n        '
+outputStr += '\n        '
 for i in range(n):
     outputStr += 'secret' + str(i + 1) + ' '
-outputStr += '- secret\n    )\n\n    (:init\n'
+outputStr += '\n    )\n\n    (:init\n'
 
 for i in range(n):
     outputStr += '        (KNOWS agent' + str(i +
@@ -58,7 +58,7 @@ outputfile = 'problem_' + str(d) + '_' + str(n) + '_' + str(
     int(percentage * 100)) + '.pddl'
 
 domain = generateDomain(d, n)
-f = open("domain_" + str(d) + '_' + str(n) + '.pddl', "w+")
+f = open("domain_" + str(d) + '.pddl', "w+")
 f.write(domain)
 f.close()
 
