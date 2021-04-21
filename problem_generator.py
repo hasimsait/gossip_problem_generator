@@ -5,6 +5,11 @@ import copy
 from goal_generator import generateKnows
 from domain_generator import generateDomain
 
+cancall = True
+# TODO this is horrible but I don't want to have another argument in this script.
+# We could parse with something else and get better support.
+# This looks like my CS201 homeworks, I hate it.
+
 try:
     d = int(sys.argv[1])
     n = int(sys.argv[2])
@@ -48,9 +53,17 @@ for i in range(n):
 outputStr += '\n    )\n\n    (:init\n'
 
 for i in range(n):
-    outputStr += '        (KNOWS agent' + str(i +
-                                              1) + ' secret' + str(i +
-                                                                   1) + ')\n'
+    outputStr += '        (KNOWS agent' + str(i + 1) + \
+        ' secret' + str(i + 1) + ')\n'
+if cancall:
+    for i in range(1, n + 1):
+        outputStr += '\n        '
+        for j in range(1, n + 1):
+            if i != j:
+                outputStr += '(CANCALL agent' + str(i) + ' agent' + str(
+                    j) + ') '
+        outputStr = outputStr[:-1]
+    outputStr += '\n'
 outputStr += '    )\n\n    (:goal\n        (and\n'
 outputStr += knows
 outputStr += '        )\n    )\n)'
