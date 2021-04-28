@@ -37,8 +37,44 @@ def generate_constraints(n, percentage, seed):
     return table
 
 
+def generate_constraints_d2(depth, n, percentage):
+    if depth < 2:
+        return
+    constraints = {}
+    if percentage != 0:
+        number_of_negative_goals_per_agent = int(n//(1 / percentage))
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    constraints[i*n+j] = random.sample(
+                        range(n), number_of_negative_goals_per_agent)
+                    # select percentage*n agents (excluding i), for each agent i. for each second agent j
+                    # 1 knows 1 knows 1 is invalid but 1 knows 2 knows 1 and 1 knows 2 knows 2 is valid
+    return constraints
+
+
+def generate_constraints_d3(depth, n, percentage):
+    if depth < 3:
+        return
+    constraints = {}
+    if percentage != 0:
+        number_of_negative_goals_per_agent = int(n//(1 / percentage))
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    for k in range(n):
+                        if k != j:
+                            constraints[i*n*n+j*n+k] = random.sample(
+                                range(n), number_of_negative_goals_per_agent)
+                            # select percentage*n agents (excluding i), for each agent i. for each second agent j
+                            # 1 knows 1 knows 1 is invalid but 1 knows 2 knows 1 and 1 knows 2 knows 2 is valid
+    return constraints
+
+
 def generateKnows(depth, n, percentage, seed):
     table = generate_constraints(n, percentage, seed)
+    d2_constraint_dict = generate_constraints_d2(depth, n, percentage)
+    d3_constraint_dict = generate_constraints_d3(depth, n, percentage)
     tmp = ''
     printForSeed = '"'
     for agent in range(n):
@@ -59,10 +95,15 @@ def generateKnows(depth, n, percentage, seed):
                 if agent1 != agent2:
                     tmp += '            '
                     for secret in range(1, n + 1):
-                        # TODO the not part.
-                        # If I add it the same way we will have many infeasible instances
-                        goalStr = '(KNOWS-2 agent'+str(agent1) +\
-                            ' agent'+str(agent2) + ' secret'+str(secret)+') '
+                        # gen constraints' loop is [0,n)
+                        if secret-1 not in d2_constraint_dict[(agent1-1)*n+agent2-1]:
+                            goalStr = '(KNOWS-2 agent'+str(agent1) +\
+                                ' agent'+str(agent2) + ' secret' + \
+                                str(secret)+')      '
+                        else:
+                            goalStr = '(not(KNOWS-2 agent'+str(agent1) +\
+                                ' agent'+str(agent2) + ' secret' + \
+                                str(secret)+')) '
                         tmp += goalStr
                     tmp += '\n'
     if depth >= 3:
@@ -73,12 +114,16 @@ def generateKnows(depth, n, percentage, seed):
                         if agent2 != agent3:
                             tmp += '            '
                             for secret in range(1, n + 1):
-                                # TODO the not part.
-                                # If I add it the same way we will have many infeasible instances
-                                goalStr = '(KNOWS-3 agent' + str(
-                                    agent1
-                                ) + ' agent' + str(agent2) + ' agent' + str(
-                                    agent3) + ' secret' + str(secret) + ') '
+                                if secret-1 not in d3_constraint_dict[(agent1-1)*n*n+(agent2-1)*n+agent3-1]:
+                                    goalStr = '(KNOWS-3 agent' + str(
+                                        agent1
+                                    ) + ' agent' + str(agent2) + ' agent' + str(
+                                        agent3) + ' secret' + str(secret) + ')      '
+                                else:
+                                    goalStr = '(not(KNOWS-3 agent' + str(
+                                        agent1
+                                    ) + ' agent' + str(agent2) + ' agent' + str(
+                                        agent3) + ' secret' + str(secret) + ')) '
                                 tmp += goalStr
                             tmp += '\n'
     # same applies here, you could improve this easily but you won't be able to use those
