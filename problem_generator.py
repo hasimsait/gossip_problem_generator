@@ -45,14 +45,19 @@ for i in range(n):
 outputStr += '\n        '
 for i in range(n):
     outputStr += 'secret' + str(i + 1) + ' '
+outputStr += '\n        '
+for i in range(3*n):
+    outputStr += 'm' + str(i) + ' '
 outputStr += '\n    )\n\n    (:init\n'
 
 for i in range(n):
-    outputStr += '        (KNOWS agent' + str(i +
-                                              1) + ' secret' + str(i +
-                                                                   1) + ')\n'
-outputStr += '    )\n\n    (:goal\n        (and\n'
+    outputStr += '        (KNOWS agent' + str(i + 1) + ' secret' + str(i + 1) + ')\n'
+outputStr += '        (at m0)\n        '
+for i in range(3*n-1):
+    outputStr += '(next m' + str(i) + ' m' + str(i+1) + ') '
+outputStr += '\n    )\n\n    (:goal\n        (and\n'
 outputStr += knows
+outputStr += '            (at m' + str(2*n) + ')\n'
 outputStr += '        )\n    )\n)'
 outputfile = 'problem_' + str(d) + '_' + str(n) + '_' + str(
     int(percentage * 100)) + '.pddl'
