@@ -57,8 +57,11 @@ for i in range(3*n-1):
     outputStr += '(next m' + str(i) + ' m' + str(i+1) + ') '
 outputStr += '\n    )\n\n    (:goal\n        (and\n'
 outputStr += knows
-outputStr += '            (at m' + str(2*n) + ')\n'
-outputStr += '        )\n    )\n)'
+outputStr += '            (or '
+for i in range(3*n):
+        outputStr+='(at m' + str(i) + ') '
+
+outputStr += ')\n        )\n    )\n)'
 outputfile = 'problem_' + str(d) + '_' + str(n) + '_' + str(
     int(percentage * 100)) + '.pddl'
 
